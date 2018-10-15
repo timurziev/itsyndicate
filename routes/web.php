@@ -11,4 +11,9 @@
 |
 */
 
-Route::get('/', 'MainController@index');
+Route::get('/', function () {
+    return view('index');
+});
+Route::get('search', 'MainController@search')->name('search');
+Route::post('upload', 'MainController@upload')->name('upload');
+
