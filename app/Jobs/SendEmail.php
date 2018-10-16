@@ -20,7 +20,7 @@ class SendEmail implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param $email
+     * @param $emails
      * @param $images
      * @return void
      */
@@ -38,11 +38,17 @@ class SendEmail implements ShouldQueue
     public function handle()
     {
         foreach ($this->emails as $email) {
-            Mail::send('mail.email', ['data' => $this->images], function ($m) use ($email) {
-                $m->from('postmaster@sandbox69ae32f5565642dea1bc247ab01128f9.mailgun.org');
+            try {
+                Mail::send('mail.email', ['images' => $this->images], function ($m) use ($email) {
+                    $m->from('postmaster@sandbox69ae32f5565642dea1bc247ab01128f9.mailgun.org');
 
-                $m->to($email)->subject('New photos!');
-            });
+                    $m->to($email)->subject('New photos!');
+                });
+                echo $email . ' <span style="color: green">success</span><br>';
+
+            } catch (\Exception $e) {
+                echo $email . ' <span style="color: red">error</span><br>';
+            }
         }
     }
 }

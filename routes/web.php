@@ -15,5 +15,5 @@ Route::get('/', function () {
     return view('index');
 });
 Route::get('search', 'MainController@search')->name('search');
-Route::post('upload', 'MainController@upload')->name('upload');
+Route::post('upload', 'MainController@uploadEmails')->name('upload');
 

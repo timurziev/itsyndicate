@@ -8,6 +8,11 @@
     <title>Document</title>
 </head>
 <body>
-    <p>hello</p>
+    <ul>
+        <p>Top 20 images</p>
+        @foreach($images as $image)
+            <li><a href="{{ $image }}">{{ $image }}</a></li>
+        @endforeach
+    </ul>
 </body>
 </html>

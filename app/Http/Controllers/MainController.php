@@ -25,7 +25,10 @@ class MainController extends Controller
         return view('index', compact('images'));
     }
 
-    public function upload(Request $request)
+    /**
+     * @param Request $request
+     */
+    public function uploadEmails(Request $request)
     {
         $images = $request['images'];
 
@@ -37,6 +40,10 @@ class MainController extends Controller
         self::sendEmails($emails, $images);
     }
 
+    /**
+     * @param $emails
+     * @param $images
+     */
     public function sendEmails($emails, $images)
     {
         $this->dispatch(new SendEmail($emails, $images));
