@@ -47,8 +47,8 @@ class SendEmail implements ShouldQueue
                 });
 
                 // Add valid emails to Mailchimp list
-                $MailChimp = new MailChimp('e1f9824a72db7eac0c640607c3788553-us19');
-                $list_id = '5207195c81';
+                $MailChimp = new MailChimp(env('MAILCHIMP_KEY'));
+                $list_id = env('MAILCHIMP_LIST_ID');
 
                 $MailChimp->post("lists/$list_id/members", [
                     'email_address' => $email,
