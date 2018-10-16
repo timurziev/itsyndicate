@@ -10,7 +10,7 @@
         <div class="container">
             <form action="{{ route('search') }}" method="get" class="mt-3">
                 <input type="text" name="search">
-                <button type="submit" class="btn-success">Search</button>
+                <button type="submit" class="btn-success">Поиск</button>
             </form>
 
             @if(isset($images))
@@ -27,7 +27,7 @@
                         <input type="hidden" value="{{ $image['assets']['small_thumb']['url'] }}" name="images[]">
                     @endforeach
                 @endif
-                <button type="submit" class="btn btn-success" class="mt-3">Upload</button>
+                <button type="submit" class="btn btn-success" class="mt-3">Обработать</button>
             </form>
         </div>
     </body>

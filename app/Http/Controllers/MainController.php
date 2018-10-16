@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Mail;
+use App\Jobs\SendEmail;
 
 class MainController extends Controller
 {
@@ -25,16 +27,18 @@ class MainController extends Controller
 
     public function upload(Request $request)
     {
-        dd($request['images']);
+        $images = $request['images'];
+
         $file = Input::file('file');
         $data = file_get_contents($file->getRealPath());
 
         $emails = explode(' ', $data);
-        self::sendEmails();
+
+        self::sendEmails($emails, $images);
     }
 
-    public function sendEmails()
+    public function sendEmails($emails, $images)
     {
-        dd(343);
+        $this->dispatch(new SendEmail($emails, $images));
     }
 }
