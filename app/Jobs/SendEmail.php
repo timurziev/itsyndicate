@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use Mail;
+use \DrewM\MailChimp\MailChimp;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -44,9 +45,21 @@ class SendEmail implements ShouldQueue
 
                     $m->to($email)->subject('New photos!');
                 });
+
+                // Add valid emails to Mailchimp list
+                $MailChimp = new MailChimp('e1f9824a72db7eac0c640607c3788553-us19');
+                $list_id = '5207195c81';
+
+                $MailChimp->post("lists/$list_id/members", [
+                    'email_address' => $email,
+                    'status'        => 'subscribed',
+                ]);
+
+                //return successful emails
                 echo $email . ' <span style="color: green">success</span><br>';
 
             } catch (\Exception $e) {
+                //return invalid or not subscribed emails
                 echo $email . ' <span style="color: red">error</span><br>';
             }
         }
